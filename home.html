@@ -1,174 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZINGSA - Home</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f2f5;
-    color: #333;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zimbabwe National Geospatial and Space Agency</title>
+  <style>
+    /* Set the corporate colors */
+    :root {
+      --navy: #182848;
+      --gold: #FFD700;
+    }
 
-header {
-    background-color: navy;
-    color: gold;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--navy);
+      color: #fff;
+    }
 
-header .logo img {
-    height: 50px;
-}
+    /* Header styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: var(--navy);
+    }
 
-header nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--gold);
+    }
 
-header nav ul li {
-    margin: 0 10px;
-}
+    /* Main content styles */
+    main {
+      padding: 40px;
+    }
 
-header nav ul li a {
-    color: gold;
-    text-decoration: none;
-}
+    .card-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
 
-.hero {
-    background-color: navy;
-    color: gold;
-    text-align: center;
-    padding: 50px 20px;
-}
+    .card {
+      width: 300px;
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease-in-out;
+    }
 
-.hero h1 {
-    margin: 0;
-    font-size: 3em;
-}
+    .card h3 {
+      margin-top: 0;
+    }
 
-.hero p {
-    font-size: 1.2em;
-}
+    .marquee {
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: marquee 10s linear infinite;
+    }
 
-.upcoming-events {
-    background-color: gold;
-    color: navy;
-    padding: 20px;
-    text-align: center;
-}
+    .icon-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
 
-.upcoming-events marquee {
-    font-size: 1.2em;
-}
+    .icon {
+      width: 50px;
+      height: 50px;
+      margin: 0 20px;
+      filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    }
 
-.cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 20px;
-}
+    /* Animations */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.card {
-    background-color: white;
-    border: 2px solid navy;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    width: 300px;
-    text-align: center;
-    overflow: hidden;
-}
-
-.card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.card h3 {
-    background-color: navy;
-    color: gold;
-    margin: 0;
-    padding: 10px;
-}
-
-.card p {
-    padding: 20px;
-    color: navy;
-}
-
-footer {
-    background-color: navy;
-    color: gold;
-    text-align: center;
-    padding: 10px 20px;
-}
-
-    </style>
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="logo.png" alt="ZINGSA Logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section class="hero">
-            <h1>Welcome to ZINGSA</h1>
-            <p>Leading the way in space science and geospatial research in Zimbabwe.</p>
-        </section>
-        
-        <section class="upcoming-events">
-            <h2>Upcoming Events</h2>
-            <marquee behavior="scroll" direction="left">
-                <span>Satellite Launch - September 15, 2024</span>
-                <span>Geospatial Conference - October 10, 2024</span>
-                <span>Space Science Workshop - November 5, 2024</span>
-            </marquee>
-        </section>
-        
-        <section class="cards">
-            <div class="card">
-                <img src="satellite.jpg" alt="Satellite">
-                <h3>Satellite Projects</h3>
-                <p>Explore our latest satellite projects and their impact on Zimbabwe.</p>
-            </div>
-            <div class="card">
-                <img src="research.jpg" alt="Research">
-                <h3>Research</h3>
-                <p>Dive into our groundbreaking research in space science and geospatial technology.</p>
-            </div>
-            <div class="card">
-                <img src="education.jpg" alt="Education">
-                <h3>Education</h3>
-                <p>Learn about our educational programs and how we inspire the next generation.</p>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2024 Zimbabwe National Geospatial and Space Agency. All rights reserved.</p>
-    </footer>
-    
-    <script src="script.js"></script>
+  <header>
+    <div class="logo">Zimbabwe National Geospatial and Space Agency</div>
+    <nav>
+      <!-- Add your navigation menu here -->
+    </nav>
+  </header>
+
+  <main>
+    <div class="card-container">
+      <div class="card">
+        <h3>Upcoming Satellite Launch</h3>
+        <p>Join us for the launch of our latest satellite into orbit.</p>
+        <!-- Add more cards here -->
+      </div>
+      <div class="card">
+        <h3>Explore Our Research</h3>
+        <p>Learn about the groundbreaking work we're doing in geospatial and space science.</p>
+      </div>
+      <div class="card">
+        <h3>Educational Outreach</h3>
+        <p>Discover our educational programs and events for students and the public.</p>
+      </div>
+    </div>
+
+    <div class="marquee">
+      Upcoming Events: Satellite Launch, Astronomy Workshop, Space Exploration Lecture
+    </div>
+
+    <div class="icon-container">
+      <img class="icon" src="satellite.svg" alt="Satellite Icon">
+      <img class="icon" src="telescope.svg" alt="Telescope Icon">
+      <img class="icon" src="rocket.svg" alt="Rocket Icon">
+    </div>
+  </main>
 </body>
 </html>
