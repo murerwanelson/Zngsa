@@ -1,7 +1,15 @@
+import os
+import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
 import pandas as pd
+
+# Get the base directory where app.py is located
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Load the background image using a relative path
+image_path = os.path.join(base_dir, 'images', 'z1.jpg')  # Reference the image in the 'images' folder
 
 # Function to process the CSV file (same as before)
 def process_csv(file_path):
@@ -40,11 +48,21 @@ def upload_and_process_csv():
 root = tk.Tk()
 root.title("Attendance Processor")
 
+# Check if running in a PyInstaller bundle
+if getattr(sys, 'frozen', False):
+    # The app is running in a PyInstaller bundle
+    base_dir = sys._MEIPASS
+else:
+    # The app is running in a normal Python environment
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Load the background image using the appropriate path
+image_path = os.path.join(base_dir, 'images', 'z1.jpg')
+
 # Load the background image
-image_path = 'C:\\Users\\user\\Desktop\\attendance\\z1.jpg'  # Your uploaded image path
-bg_image = Image.open(image_path)
+bg_image = Image.open(image_path)  # Open the image file
 bg_image = bg_image.resize((400, 200), Image.ANTIALIAS)  # Resize the image to fit the window
-bg_photo = ImageTk.PhotoImage(bg_image)
+bg_photo = ImageTk.PhotoImage(bg_image)  # Convert the image to a PhotoImage object
 
 # Create a Canvas to hold the background image
 canvas = tk.Canvas(root, width=400, height=200)
