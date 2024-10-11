@@ -61,7 +61,7 @@ image_path = os.path.join(base_dir, 'images', 'z1.jpg')
 
 # Load the background image
 bg_image = Image.open(image_path)  # Open the image file
-bg_image = bg_image.resize((400, 200), Image.ANTIALIAS)  # Resize the image to fit the window
+bg_image = bg_image.resize((400, 200), Image.Resampling.LANCZOS)  # Resize the image to fit the window
 bg_photo = ImageTk.PhotoImage(bg_image)  # Convert the image to a PhotoImage object
 
 # Create a Canvas to hold the background image
