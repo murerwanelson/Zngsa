@@ -1,33 +1,19 @@
+# app.py
 import os
 import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
 import pandas as pd
+from attendance import process_attendance  # Import the function from attendance.py
 
-# Get the base directory where app.py is located
-base_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Load the background image using a relative path
-image_path = os.path.join(base_dir, 'images', 'z1.jpg')  # Reference the image in the 'images' folder
-
-# Function to process the CSV file (same as before)
+# Function to process the CSV file
 def process_csv(file_path):
-    df = pd.read_csv(file_path)
-    columns_to_drop = ['Department', 'No.', 'Location ID', 'ID Number', 'VerifyCode', 'CardNo']
-    df = df.drop(columns=columns_to_drop)
-    df['Date'] = pd.to_datetime(df['Date/Time']).dt.date
-    df['Time'] = pd.to_datetime(df['Date/Time']).dt.time
-    df = df.drop(columns=['Date/Time'])
-    time_in_out = df.groupby(['Name', 'Date'])['Time'].agg(['min', 'max'])
-    time_in_out = time_in_out.rename(columns={'min': 'Time In', 'max': 'Time Out'}).reset_index()
-    unique_names = df['Name'].unique()
-    date_range = pd.date_range(start=df['Date'].min(), end=df['Date'].max())
-    all_attendance = [{'Name': name, 'Date': date.date()} for name in unique_names for date in date_range]
-    attendance_df = pd.DataFrame(all_attendance)
-    attendance_df = pd.merge(attendance_df, time_in_out, on=['Name', 'Date'], how='left')
-    attendance_df['Attendance'] = attendance_df['Time In'].notnull().map({True: 'Present', False: 'Absent'})
-    return attendance_df
+    try:
+        return process_attendance(file_path)  # Call the imported function
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to process the file: {e}")
+        return None
 
 def save_processed_csv(df):
     save_path = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
@@ -38,31 +24,22 @@ def save_processed_csv(df):
 def upload_and_process_csv():
     file_path = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
     if file_path:
-        try:
-            processed_df = process_csv(file_path)
+        processed_df = process_csv(file_path)
+        if processed_df is not None:
             save_processed_csv(processed_df)
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to process the file: {e}")
 
 # Initialize Tkinter
 root = tk.Tk()
 root.title("Attendance Processor")
 
-# Check if running in a PyInstaller bundle
-if getattr(sys, 'frozen', False):
-    # The app is running in a PyInstaller bundle
-    base_dir = sys._MEIPASS
-else:
-    # The app is running in a normal Python environment
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Load the background image using the appropriate path
+# Load the background image (same code as before)
+base_dir = os.path.dirname(os.path.abspath(__file__))
 image_path = os.path.join(base_dir, 'images', 'z1.jpg')
 
 # Load the background image
-bg_image = Image.open(image_path)  # Open the image file
-bg_image = bg_image.resize((400, 200), Image.Resampling.LANCZOS)  # Resize the image to fit the window
-bg_photo = ImageTk.PhotoImage(bg_image)  # Convert the image to a PhotoImage object
+bg_image = Image.open(image_path)
+bg_image = bg_image.resize((400, 200), Image.Resampling.LANCZOS)
+bg_photo = ImageTk.PhotoImage(bg_image)
 
 # Create a Canvas to hold the background image
 canvas = tk.Canvas(root, width=400, height=200)
@@ -73,8 +50,6 @@ canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
 # Create a button and add it on top of the image
 process_button = tk.Button(root, text="Process CSV", command=upload_and_process_csv, font=("Arial", 12), bg="blue", fg="white")
-
-# Place the button using canvas window to allow it on top of the image
 canvas.create_window(200, 100, window=process_button)  # Positioning at the center
 
 # Run the application
